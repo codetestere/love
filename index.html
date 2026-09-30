@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>For mi love</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html,body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    background:#020204;
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+    color:white;
+}
+
+body{
+    position:relative;
+}
+
+/* =========================
+   BACKGROUND
+========================= */
+
+#stars{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    z-index:0;
+}
+
+.background-glow{
+    position:fixed;
+    width:450px;
+    height:450px;
+    border-radius:50%;
+    background:
+        radial-gradient(circle,
+        rgba(255,70,130,.25),
+        rgba(150,70,255,.12),
+        transparent 70%);
+    filter:blur(50px);
+    pointer-events:none;
+    animation:
+        backgroundMove 8s ease-in-out infinite alternate;
+}
+
+@keyframes backgroundMove{
+    from{
+        transform:translate(-20vw,-10vh) scale(.8);
+    }
+
+    to{
+        transform:translate(30vw,15vh) scale(1.4);
+    }
+}
+
+/* =========================
+   INTRO SCREEN
+========================= */
+
+#intro{
+    position:fixed;
+    inset:0;
+    z-index:50;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:
+        radial-gradient(
+            circle at center,
+            #130713 0%,
+            #050307 45%,
+            #020204 100%
+        );
+
+    transition:
+        opacity 1.6s cubic-bezier(.7,0,.2,1);
+}
+
+.intro-content{
+    width:90%;
+    max-width:500px;
+    text-align:center;
+}
+
+/* Orb */
+
+.orb{
+    width:115px;
+    height:115px;
+
+    margin:auto;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle at 35% 30%,
+            #fff,
+            #ff9cbd 7%,
+            #ff3979 22%,
+            #87184b 48%,
+            transparent 70%
+        );
+
+    box-shadow:
+        0 0 25px #ff3979,
+        0 0 70px #ff397955,
+        0 0 150px #ff397922;
+
+    animation:
+        orbPulse 2.2s ease-in-out infinite;
+}
+
+@keyframes orbPulse{
+
+    0%,100%{
+        transform:scale(.88);
+        filter:brightness(.8);
+    }
+
+    50%{
+        transform:scale(1.08);
+        filter:brightness(1.35);
+    }
+}
+
+/* Rings */
+
+.orb::before,
+.orb::after{
+    content:"";
+
+    position:absolute;
+
+    width:160px;
+    height:160px;
+
+    left:50%;
+    top:50%;
+
+    transform:translate(-50%,-50%);
+
+    border:1px solid rgba(255,100,150,.18);
+
+    border-radius:50%;
+}
+
+.orb::after{
+    width:210px;
+    height:210px;
+
+    border-color:rgba(190,120,255,.10);
+}
+
+/* Loading */
+
+.loading-title{
+    margin-top:55px;
+
+    font-size:11px;
+
+    letter-spacing:6px;
+
+    text-transform:uppercase;
+
+    color:#aaa1ae;
+
+    animation:
+        textPulse 1.8s infinite;
+}
+
+@keyframes textPulse{
+
+    0%,100%{
+        opacity:.35;
+    }
+
+    50%{
+        opacity:1;
+    }
+}
+
+.loading-percent{
+    margin-top:16px;
+
+    font-size:12px;
+
+    letter-spacing:3px;
+
+    color:#665d6b;
+}
+
+/* Progress */
+
+.progress-container{
+    width:240px;
+    height:2px;
+
+    margin:18px auto;
+
+    background:#ffffff0d;
+
+    overflow:hidden;
+}
+
+.progress{
+    width:0%;
+    height:100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            #ff3979,
+            #ff9bc0,
+            #b879ff
+        );
+
+    box-shadow:
+        0 0 15px #ff3979;
+
+    transition:
+        width .25s ease;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+#main{
+    position:fixed;
+    inset:0;
+
+    z-index:10;
+
+    display:none;
+
+    align-items:center;
+    justify-content:center;
+
+    padding:18px;
+}
+
+/* =========================
+   PHOTO CARD
+========================= */
+
+.photo-card{
+
+    position:relative;
+
+    width:min(430px,92vw);
+    height:min(720px,90vh);
+
+    overflow:hidden;
+
+    border-radius:32px;
+
+    background:#070609;
+
+    box-shadow:
+
+        0 30px 100px rgba(0,0,0,.9),
+
+        0 0 0 1px rgba(255,255,255,.12),
+
+        0 0 80px rgba(255,60,130,.12);
+
+    transform:
+        scale(.72)
+        translateY(35px);
+
+    opacity:0;
+
+    animation:
+        photoEnter 2.1s
+        cubic-bezier(.16,1,.3,1)
+        forwards;
+
+    isolation:isolate;
+}
+
+@keyframes photoEnter{
+
+    0%{
+        opacity:0;
+        transform:
+            scale(.72)
+            translateY(35px);
+    }
+
+    60%{
+        opacity:1;
+    }
+
+    100%{
+        opacity:1;
+        transform:
+            scale(1)
+            translateY(0);
+    }
+}
+
+/* Photo */
+
+.photo{
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    display:block;
+
+    transform:scale(1.08);
+
+    animation:
+        photoZoom 12s
+        cubic-bezier(.2,.7,.2,1)
+        forwards;
+
+    filter:
+        saturate(1.05)
+        contrast(1.04);
+}
+
+@keyframes photoZoom{
+
+    from{
+        transform:scale(1.08);
+    }
+
+    to{
+        transform:scale(1);
+    }
+}
+
+/* Cinematic overlay */
+
+.photo-overlay{
+
+    position:absolute;
+    inset:0;
+
+    background:
+
+        linear-gradient(
+            to bottom,
+            rgba(0,0,0,.4),
+            transparent 30%,
+            transparent 50%,
+            rgba(0,0,0,.85)
+        );
+
+    z-index:2;
+}
+
+/* Top label */
+
+.top-label{
+
+    position:absolute;
+
+    top:25px;
+    left:25px;
+    right:25px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:space-between;
+
+    z-index:5;
+
+    font-size:9px;
+
+    letter-spacing:4px;
+
+    color:#fff9;
+
+    text-transform:uppercase;
+}
+
+.live-dot{
+
+    width:7px;
+    height:7px;
+
+    border-radius:50%;
+
+    background:#ff6e9d;
+
+    box-shadow:
+        0 0 10px #ff6e9d;
+
+    animation:
+        dotPulse 1.5s infinite;
+}
+
+@keyframes dotPulse{
+
+    50%{
+        transform:scale(1.7);
+        opacity:.4;
+    }
+}
+
+/* =========================
+   MESSAGE
+========================= */
+
+.message{
+
+    position:absolute;
+
+    left:26px;
+    right:26px;
+    bottom:30px;
+
+    z-index:5;
+
+    opacity:0;
+
+    transform:translateY(25px);
+
+    animation:
+        messageEnter 1.5s
+        1.2s
+        cubic-bezier(.2,.8,.2,1)
+        forwards;
+}
+
+@keyframes messageEnter{
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.mini{
+
+    font-size:10px;
+
+    letter-spacing:4px;
+
+    text-transform:uppercase;
+
+    color:#ffc2d6;
+
+    margin-bottom:10px;
+}
+
+.message h1{
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    font-size:
+        clamp(55px,15vw,78px);
+
+    line-height:.82;
+
+    font-weight:400;
+
+    letter-spacing:-4px;
+
+    margin-bottom:18px;
+
+    background:
+        linear-gradient(
+            120deg,
+            #fff,
+            #ffc0d6,
+            #fff
+        );
+
+    background-size:200%;
+
+    -webkit-background-clip:text;
+
+    color:transparent;
+
+    animation:
+        gradientMove 5s linear infinite;
+}
+
+@keyframes gradientMove{
+
+    to{
+        background-position:200%;
+    }
+}
+
+.message p{
+
+    max-width:340px;
+
+    font-size:14px;
+
+    line-height:1.65;
+
+    color:#eee8ed;
+}
+
+/* =========================
+   FLOATING PARTICLES
+========================= */
+
+.particle{
+
+    position:absolute;
+
+    z-index:4;
+
+    pointer-events:none;
+
+    color:#ff9fbd;
+
+    font-size:16px;
+
+    opacity:0;
+
+    animation:
+        floatUp
+        5s
+        linear
+        infinite;
+}
+
+@keyframes floatUp{
+
+    0%{
+        opacity:0;
+
+        transform:
+            translateY(30px)
+            scale(.5);
+    }
+
+    20%{
+        opacity:.8;
+    }
+
+    80%{
+        opacity:.4;
+    }
+
+    100%{
+        opacity:0;
+
+        transform:
+            translateY(-450px)
+            scale(1.2)
+            rotate(180deg);
+    }
+}
+
+/* =========================
+   MUSIC BUTTON
+========================= */
+
+.music-button{
+
+    position:fixed;
+
+    right:18px;
+    bottom:18px;
+
+    z-index:100;
+
+    width:45px;
+    height:45px;
+
+    border-radius:50%;
+
+    border:1px solid #ffffff20;
+
+    background:#0b090ddd;
+
+    color:white;
+
+    cursor:pointer;
+
+    backdrop-filter:blur(15px);
+
+    display:none;
+
+    box-shadow:
+        0 10px 30px #0008;
+}
+
+.music-button.playing{
+
+    animation:
+        musicPulse 1.5s infinite;
+}
+
+@keyframes musicPulse{
+
+    50%{
+        box-shadow:
+            0 0 0 8px #ff4f8015,
+            0 10px 30px #0008;
+    }
+}
+
+/* =========================
+   TAP MESSAGE
+========================= */
+
+.tap-message{
+
+    position:fixed;
+
+    left:50%;
+    bottom:20px;
+
+    transform:
+        translateX(-50%)
+        translateY(20px);
+
+    z-index:90;
+
+    padding:11px 17px;
+
+    border-radius:999px;
+
+    background:#0b090ddd;
+
+    border:1px solid #ffffff18;
+
+    color:#aaa2ad;
+
+    font-size:11px;
+
+    opacity:0;
+
+    pointer-events:none;
+
+    transition:.5s;
+
+    backdrop-filter:blur(15px);
+}
+
+.tap-message.show{
+
+    opacity:1;
+
+    transform:
+        translateX(-50%)
+        translateY(0);
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:500px){
+
+    .photo-card{
+        height:88vh;
+        border-radius:27px;
+    }
+
+    .message h1{
+        letter-spacing:-3px;
+    }
+
+    .orb{
+        width:95px;
+        height:95px;
+    }
+}
+</style>
+</head>
+
+
+<body>
+
+<canvas id="stars"></canvas>
+
+<div class="background-glow"></div>
+
+
+<!-- =========================
+     INTRO
+========================= -->
+
+<section id="intro">
+
+    <div class="intro-content">
+
+        <div class="orb"></div>
+
+        <div
+            class="loading-title"
+            id="loadingText"
+        >
+            Initializing...
+        </div>
+
+        <div
+            class="progress-container"
+        >
+            <div
+                class="progress"
+                id="progress"
+            ></div>
+        </div>
+
+        <div
+            class="loading-percent"
+            id="percent"
+        >
+            0%
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     MAIN PHOTO
+========================= -->
+
+<main id="main">
+
+    <div class="photo-card">
+
+        <img
+            src="negisha.jpg"
+            class="photo"
+            id="photo"
+            alt="mi love"
+        >
+
+        <div class="photo-overlay"></div>
+
+
+        <div class="top-label">
+
+            <span>
+            </span>
+
+            <span class="live-dot"></span>
+
+        </div>
+
+
+        <div class="message">
+
+            <div class="mini">
+                sweet and dangerous
+            </div>
+
+            <h1>
+                Negisha mi love
+            </h1>
+
+            <p>
+                i love you sweety cant wait to roam this huge world with you wrapped in my arms❤️
+                
+            </p>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<audio
+    id="music"
+    src="negisha.mp3"
+    preload="auto"
+    loop
+></audio>
+
+
+<button
+    class="music-button"
+    id="musicButton"
+>
+    ♪
+</button>
+
+
+<div
+    class="tap-message"
+    id="tapMessage"
+>
+    Tap anywhere sweety ♪
+</div>
+
+
+<script>
+
+/* ==========================================
+   STAR FIELD
+========================================== */
+
+const canvas =
+    document.getElementById("stars");
+
+const ctx =
+    canvas.getContext("2d");
+
+let width;
+let height;
+
+let stars = [];
+
+
+function resizeCanvas(){
+
+    width =
+        canvas.width =
+        window.innerWidth;
+
+    height =
+        canvas.height =
+        window.innerHeight;
+
+    stars =
+        Array.from(
+            {length:120},
+            () => ({
+
+                x:Math.random()*width,
+
+                y:Math.random()*height,
+
+                radius:
+                    Math.random()*1.4+.2,
+
+                speed:
+                    Math.random()*.35+.05,
+
+                opacity:
+                    Math.random()
+
+            })
+        );
+}
+
+
+resizeCanvas();
+
+
+window.addEventListener(
+    "resize",
+    resizeCanvas
+);
+
+
+function drawStars(){
+
+    ctx.clearRect(
+        0,
+        0,
+        width,
+        height
+    );
+
+
+    stars.forEach(star => {
+
+        star.y -= star.speed;
+
+
+        if(star.y < 0){
+
+            star.y = height;
+
+        }
+
+
+        star.opacity += .015;
+
+
+        ctx.globalAlpha =
+            .2 +
+            .25 *
+            Math.sin(star.opacity);
+
+
+        ctx.fillStyle =
+            "#ffffff";
+
+
+        ctx.beginPath();
+
+        ctx.arc(
+            star.x,
+            star.y,
+            star.radius,
+            0,
+            Math.PI*2
+        );
+
+        ctx.fill();
+
+    });
+
+
+    requestAnimationFrame(
+        drawStars
+    );
+}
+
+
+drawStars();
+
+
+/* ==========================================
+   CINEMATIC LOADING SEQUENCE
+========================================== */
+
+const loadingText =
+    document.getElementById(
+        "loadingText"
+    );
+
+const progress =
+    document.getElementById(
+        "progress"
+    );
+
+const percent =
+    document.getElementById(
+        "percent"
+    );
+
+
+const stages = [
+
+    "Initializing love...",
+
+    "Loading my beautiful wife negisha...",
+
+    "wait naughty...",
+
+    "i love you sweety...",
+
+    "Almost there...",
+
+    "here you are bbg..."
+
+];
+
+
+let value = 0;
+
+let stage = 0;
+
+
+const loading =
+    setInterval(() => {
+
+        value +=
+            Math.floor(
+                Math.random()*7
+            ) + 3;
+
+
+        if(value > 100){
+
+            value = 100;
+
+        }
+
+
+        progress.style.width =
+            value + "%";
+
+
+        percent.textContent =
+            value + "%";
+
+
+        if(
+            value > 15 &&
+            stage === 0
+        ){
+
+            stage = 1;
+
+            loadingText.textContent =
+                stages[1];
+
+        }
+
+
+        if(
+            value > 35 &&
+            stage === 1
+        ){
+
+            stage = 2;
+
+            loadingText.textContent =
+                stages[2];
+
+        }
+
+
+        if(
+            value > 58 &&
+            stage === 2
+        ){
+
+            stage = 3;
+
+            loadingText.textContent =
+                stages[3];
+
+        }
+
+
+        if(
+            value > 80 &&
+            stage === 3
+        ){
+
+            stage = 4;
+
+            loadingText.textContent =
+                stages[4];
+
+        }
+
+
+        if(value === 100){
+
+            clearInterval(
+                loading
+            );
+
+
+            loadingText.textContent =
+                stages[5];
+
+
+            setTimeout(
+                reveal,
+                1200
+            );
+
+        }
+
+    },220);
+
+
+/* ==========================================
+   REVEAL
+========================================== */
+
+function reveal(){
+
+    const intro =
+        document.getElementById(
+            "intro"
+        );
+
+
+    intro.style.opacity =
+        "0";
+
+
+    setTimeout(() => {
+
+        intro.style.display =
+            "none";
+
+
+        document.getElementById(
+            "main"
+        ).style.display =
+            "flex";
+
+
+        createParticles();
+
+
+        startMusic();
+
+    },1600);
+
+}
+
+
+/* ==========================================
+   FLOATING HEARTS / PARTICLES
+========================================== */
+
+function createParticles(){
+
+    const card =
+        document.querySelector(
+            ".photo-card"
+        );
+
+
+    const symbols = [
+        "♥",
+        "♡",
+        "✦",
+        "✧",
+        "·"
+    ];
+
+
+    for(
+        let i=0;
+        i<18;
+        i++
+    ){
+
+        const particle =
+            document.createElement(
+                "span"
+            );
+
+
+        particle.className =
+            "particle";
+
+
+        particle.textContent =
+            symbols[
+                Math.floor(
+                    Math.random() *
+                    symbols.length
+                )
+            ];
+
+
+        particle.style.left =
+            (5 +
+            Math.random()*90)
+            + "%";
+
+
+        particle.style.bottom =
+            (Math.random()*20)
+            + "%";
+
+
+        particle.style.animationDelay =
+            (Math.random()*5)
+            + "s";
+
+
+        particle.style.fontSize =
+            (10 +
+            Math.random()*18)
+            + "px";
+
+
+        card.appendChild(
+            particle
+        );
+
+    }
+
+}
+
+
+/* ==========================================
+   MUSIC
+========================================== */
+
+const music =
+    document.getElementById(
+        "music"
+    );
+
+
+const musicButton =
+    document.getElementById(
+        "musicButton"
+    );
+
+
+const tapMessage =
+    document.getElementById(
+        "tapMessage"
+    );
+
+
+function startMusic(){
+
+    music.volume =
+        .72;
+
+
+    music.play()
+
+    .then(() => {
+
+        musicButton.style.display =
+            "block";
+
+        musicButton.classList.add(
+            "playing"
+        );
+
+    })
+
+    .catch(() => {
+
+        tapMessage.classList.add(
+            "show"
+        );
+
+
+        document.body.addEventListener(
+            "click",
+            unlockMusic,
+            {once:true}
+        );
+
+    });
+
+}
+
+
+function unlockMusic(){
+
+    music.play()
+
+    .then(() => {
+
+        tapMessage.classList.remove(
+            "show"
+        );
+
+
+        musicButton.style.display =
+            "block";
+
+
+        musicButton.classList.add(
+            "playing"
+        );
+
+    });
+
+}
+
+
+musicButton.addEventListener(
+    "click",
+    () => {
+
+        if(
+            music.paused
+        ){
+
+            music.play();
+
+            musicButton.textContent =
+                "♪";
+
+            musicButton.classList.add(
+                "playing"
+            );
+
+        }
+
+        else{
+
+            music.pause();
+
+            musicButton.textContent =
+                "Ⅱ";
+
+            musicButton.classList.remove(
+                "playing"
+            );
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+          </html>
